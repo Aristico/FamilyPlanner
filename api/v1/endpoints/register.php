@@ -39,23 +39,23 @@ if (strlen($password) < 8) {
     exit();
 }
 
-// 3. Check if user already exists
-$db = Database::getInstance()->getConnection();
-
-$stmt = $db->prepare("SELECT id FROM users WHERE email = :email");
-$stmt->execute(['email' => $email]);
-
-if ($stmt->rowCount() > 0) {
-    http_response_code(409); // Conflict
-    echo json_encode(['message' => 'A user with this email already exists.']);
-    exit();
-}
-
-// 4. Hash Password
-$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-// 5. Create User and Family in a Transaction
+// 3. Create User and Family in a Transaction
 try {
+    $db = Database::getInstance()->getConnection();
+
+    // Check if user already exists
+    $stmt = $db->prepare("SELECT id FROM users WHERE email = :email");
+    $stmt->execute(['email' => $email]);
+
+    if ($stmt->rowCount() > 0) {
+        http_response_code(409); // Conflict
+        echo json_encode(['message' => 'A user with this email already exists.']);
+        exit();
+    }
+
+    // Hash Password
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
     $db->beginTransaction();
 
     // Insert user (without family_id first)
@@ -83,7 +83,10 @@ try {
     echo json_encode(['message' => 'User registered successfully.']);
 
 } catch (Exception $e) {
-    $db->rollBack();
+    // If transaction was started, roll back.
+    if (isset($db) && $db->inTransaction()) {
+        $db->rollBack();
+    }
     http_response_code(500); // Internal Server Error
     echo json_encode(['message' => 'Registration failed: ' . $e->getMessage()]);
 }

@@ -27,7 +27,7 @@ class Database
             // For development, you might want to see the error.
             // In production, you should log this error and show a generic message.
             // For now, we'll just die and show the error.
-            die("Database connection failed: " . $e->getMessage());
+            throw new RuntimeException("Database connection failed: " . $e->getMessage(), 0, $e);
         }
     }
 
