@@ -1,26 +1,17 @@
 <template>
-  <header class="bg-white/80 backdrop-blur-sm border-b border-slate-200 z-10">
-    <div class="px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div class="md:hidden">
-          <h1 class="text-xl font-bold text-slate-900">Essensplaner</h1>
-        </div>
-        <div class="flex items-center justify-center flex-1">
-          <button class="p-2 rounded-full hover:bg-slate-200">
-            <i class="ph ph-caret-left text-xl"></i>
-          </button>
-          <h2 class="mx-4 text-lg font-semibold text-slate-800">Woche 40 (30. Sep - 06. Okt)</h2>
-          <button class="p-2 rounded-full hover:bg-slate-200">
-            <i class="ph ph-caret-right text-xl"></i>
-          </button>
-        </div>
+  <header class="bg-white/80 backdrop-blur-sm border-b-2 border-slate-300 shadow-md z-10">
+    <div class="px-4 sm:px-6 lg:px-8 relative h-16">
+      <!-- Logo (Center) -->
+      <div class="flex items-center justify-center h-full">
+        <i class="ph ph-calendar-check text-primary-600 text-2xl"></i>
+        <h1 class="ml-2 text-lg font-bold text-slate-900">FamilienPlaner</h1>
       </div>
     </div>
   </header>
 </template>
 
 <script setup>
-// No script needed for this simple Header
+// No script needed, toggle is handled in parent
 </script>
 
 <style scoped>
