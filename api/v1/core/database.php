@@ -5,15 +5,13 @@ class Database
     private static $instance = null;
     private $conn;
 
-    private function __construct()
+    private function __construct($db_config)
     {
-        $config = require(__DIR__ . '/config.php');
-        
-        $db_host = $config['db']['host'];
-        $db_name = $config['db']['name'];
-        $db_user = $config['db']['user'];
-        $db_pass = $config['db']['pass'];
-        $db_port = $config['db']['port'];
+        $db_host = $db_config['host'];
+        $db_name = $db_config['name'];
+        $db_user = $db_config['user'];
+        $db_pass = $db_config['pass'];
+        $db_port = $db_config['port'];
 
         $dsn = "mysql:host=$db_host;port=$db_port;dbname=$db_name;charset=utf8mb4";
 
@@ -31,10 +29,10 @@ class Database
         }
     }
 
-    public static function getInstance()
+    public static function getInstance($config)
     {
         if (self::$instance == null) {
-            self::$instance = new Database();
+            self::$instance = new Database($config['db']);
         }
 
         return self::$instance;

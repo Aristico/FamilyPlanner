@@ -27,6 +27,8 @@ function loadEnv($path)
 // Assuming .env is in the project root, which is three levels up from 'core'
 loadEnv(__DIR__ . '/../../../.env');
 
+define('PROJECT_ROOT', realpath(__DIR__ . '/../../../') . '/');
+
 // Database configuration
 return [
     'db' => [

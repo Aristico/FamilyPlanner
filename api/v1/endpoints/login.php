@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+$config = require_once __DIR__ . '/../core/config.php';
 require_once __DIR__ . '/../core/database.php';
 
 header("Content-Type: application/json");
@@ -30,7 +31,7 @@ if (empty($email) || empty($password)) {
 
 // 3. Find User and Verify Password
 try {
-    $db = Database::getInstance()->getConnection();
+    $db = Database::getInstance($config)->getConnection();
 
     $stmt = $db->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->execute(['email' => $email]);

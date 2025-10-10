@@ -25,6 +25,46 @@ if (strpos($path, 'v1/endpoints/') === 0) {
     }
 }
 
+// Handle user-specific endpoints
+if (strpos($path, 'v1/user/') === 0) {
+    $parts = explode('/', $path);
+    $endpoint = end($parts);
+    $file = __DIR__ . '/v1/endpoints/user/' . $endpoint . '.php';
+    error_log("DEBUG: Attempting to include user endpoint file: " . $file);
+    if (file_exists($file)) {
+        require $file;
+        exit;
+    }
+}
+
+// Handle family-specific endpoints
+if (strpos($path, 'v1/family/') === 0) {
+    $parts = explode('/', $path);
+    $endpoint = end($parts);
+    $file = __DIR__ . '/v1/endpoints/family/' . $endpoint . '.php';
+    error_log("DEBUG: Attempting to include family endpoint file: " . $file);
+    if (file_exists($file)) {
+        require $file;
+        exit;
+    }
+}
+
+// Handle static file requests for uploads
+if (strpos($path, 'uploads/') === 0) {
+    $file = __DIR__ . '/' . $path;
+    error_log("DEBUG: Attempting to serve static file: " . $file);
+    if (file_exists($file)) {
+        // Determine content type
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_file($finfo, $file);
+        finfo_close($finfo);
+
+        header("Content-Type: " . $mime_type);
+        readfile($file);
+        exit;
+    }
+}
+
 // Fallback for other requests (e.g., static files, or if the endpoint doesn't exist)
 return false;
 ?>

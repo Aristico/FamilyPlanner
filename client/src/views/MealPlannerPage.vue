@@ -35,148 +35,58 @@
     </div>
 
     <div class="grid grid-cols-1 gap-4" :class="`md:grid-cols-${columns}`">
-      <!-- Montag -->
-      <div class="bg-white rounded-lg border-2 border-slate-300 shadow-md p-4 flex flex-col">
+      <!-- Loop through days -->
+      <div v-for="dayData in weekData" :key="dayData.day" class="bg-white rounded-lg border-2 border-slate-300 shadow-md p-4 flex flex-col">
         <div class="flex justify-between items-center mb-3">
-          <h3 class="font-bold text-slate-800">Montag</h3>
+          <h3 class="font-bold text-slate-800">{{ dayData.day }}</h3>
           <button class="p-2 rounded-full hover:bg-slate-100">
             <i class="ph ph-storefront text-xl text-slate-500"></i>
           </button>
         </div>
-        <div class="space-y-3 flex-1">
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg space-y-1.5">
-            <div class="text-xs font-semibold text-slate-500">Frühstück</div>
-            <div class="bg-sky-200 text-sky-900 p-2 rounded-md">
-              <p class="font-semibold text-sm">Müsli & Joghurt</p>
-              <span class="text-xs flex items-center mt-1 font-medium"><i class="ph-fill ph-users mr-1"></i> 2 Pers.</span>
-            </div>
-          </div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg space-y-1.5">
-            <div class="text-xs font-semibold text-slate-500">Mittagessen</div>
-            <div class="bg-amber-200 text-amber-900 p-2 rounded-md">
-              <p class="font-semibold text-sm">Außer Haus</p>
-              <span class="text-xs flex items-center mt-1 font-medium"><i class="ph-fill ph-storefront mr-1"></i> 1 Pers.</span>
-            </div>
-          </div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg space-y-1.5">
-            <div class="text-xs font-semibold text-slate-500">Abendessen</div>
-            <div class="bg-emerald-200 text-emerald-900 p-2 rounded-md">
-              <p class="font-semibold text-sm">Spaghetti Bolognese</p>
-              <span class="text-xs flex items-center mt-1 font-medium"><i class="ph-fill ph-users mr-1"></i> 4 Pers.</span>
-            </div>
-          </div>
+        <div class="space-y-4 flex-1">
+          <MealSlot title="Frühstück" :meal="dayData.meals.breakfast" />
+          <MealSlot title="Mittagessen" :meal="dayData.meals.lunch" />
+          <MealSlot title="Abendessen" :meal="dayData.meals.dinner" />
         </div>
       </div>
-
-      <!-- Other days follow the same structure -->
-      <!-- Dienstag -->
-      <div class="bg-white rounded-lg border-2 border-slate-300 shadow-md p-4 flex flex-col">
-        <div class="flex justify-between items-center mb-3">
-          <h3 class="font-bold text-slate-800">Dienstag</h3>
-          <button class="p-2 rounded-full hover:bg-slate-100">
-            <i class="ph ph-storefront text-xl text-slate-500"></i>
-          </button>
-        </div>
-        <div class="space-y-3 flex-1">
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg space-y-1.5">
-            <div class="text-xs font-semibold text-slate-500">Abendessen</div>
-            <div class="bg-emerald-200 text-emerald-900 p-2 rounded-md">
-              <p class="font-semibold text-sm">Hähnchen Curry</p>
-              <span class="text-xs flex items-center mt-1 font-medium"><i class="ph-fill ph-users mr-1"></i> 4 Pers.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mittwoch -->
-      <div class="bg-white rounded-lg border-2 border-slate-300 shadow-md p-4 flex flex-col">
-        <div class="flex justify-between items-center mb-3">
-          <h3 class="font-bold text-slate-800">Mittwoch</h3>
-          <button class="p-2 rounded-full hover:bg-slate-100">
-            <i class="ph ph-storefront text-xl text-slate-500"></i>
-          </button>
-        </div>
-        <div class="space-y-3 flex-1">
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-        </div>
-      </div>
-
-      <!-- Donnerstag -->
-      <div class="bg-white rounded-lg border-2 border-slate-300 shadow-md p-4 flex flex-col">
-        <div class="flex justify-between items-center mb-3">
-          <h3 class="font-bold text-slate-800">Donnerstag</h3>
-          <button class="p-2 rounded-full hover:bg-slate-100">
-            <i class="ph ph-storefront text-xl text-slate-500"></i>
-          </button>
-        </div>
-        <div class="space-y-3 flex-1">
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-        </div>
-      </div>
-
-      <!-- Freitag -->
-      <div class="bg-white rounded-lg border-2 border-slate-300 shadow-md p-4 flex flex-col">
-        <div class="flex justify-between items-center mb-3">
-          <h3 class="font-bold text-slate-800">Freitag</h3>
-          <button class="p-2 rounded-full hover:bg-slate-100">
-            <i class="ph ph-storefront text-xl text-slate-500"></i>
-          </button>
-        </div>
-        <div class="space-y-3 flex-1">
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-        </div>
-      </div>
-
-      <!-- Samstag -->
-      <div class="bg-white rounded-lg border-2 border-slate-300 shadow-md p-4 flex flex-col">
-        <div class="flex justify-between items-center mb-3">
-          <h3 class="font-bold text-slate-800">Samstag</h3>
-          <button class="p-2 rounded-full hover:bg-slate-100">
-            <i class="ph ph-storefront text-xl text-slate-500"></i>
-          </button>
-        </div>
-        <div class="space-y-3 flex-1">
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-        </div>
-      </div>
-
-      <!-- Sonntag -->
-      <div class="bg-white rounded-lg border-2 border-slate-300 shadow-md p-4 flex flex-col">
-        <div class="flex justify-between items-center mb-3">
-          <h3 class="font-bold text-slate-800">Sonntag</h3>
-          <button class="p-2 rounded-full hover:bg-slate-100">
-            <i class="ph ph-storefront text-xl text-slate-500"></i>
-          </button>
-        </div>
-        <div class="space-y-3 flex-1">
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-          <div class="min-h-[90px] bg-slate-50/80 p-2.5 rounded-lg"></div>
-        </div>
-      </div>
-
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import MealSlot from '../components/MealSlot.vue';
 
 const columns = ref(3);
 
 const setColumns = (count) => {
   columns.value = count;
 };
+
+// Sample data structure
+const weekData = ref([
+  {
+    day: 'Montag',
+    meals: {
+      breakfast: { name: 'Müsli & Joghurt', servings: '2 Pers.', icon: 'ph-users', colorClass: 'bg-sky-100 border-sky-500 text-sky-900' },
+      lunch: { name: 'Außer Haus', servings: '1 Pers.', icon: 'ph-storefront', colorClass: 'bg-amber-100 border-amber-500 text-amber-900' },
+      dinner: { name: 'Spaghetti Bolognese', servings: '4 Pers.', icon: 'ph-users', colorClass: 'bg-emerald-100 border-emerald-500 text-emerald-900' },
+    }
+  },
+  {
+    day: 'Dienstag',
+    meals: {
+      breakfast: null,
+      lunch: null,
+      dinner: { name: 'Hähnchen Curry', servings: '4 Pers.', icon: 'ph-users', colorClass: 'bg-emerald-100 border-emerald-500 text-emerald-900' },
+    }
+  },
+  { day: 'Mittwoch', meals: { breakfast: null, lunch: null, dinner: null } },
+  { day: 'Donnerstag', meals: { breakfast: null, lunch: null, dinner: null } },
+  { day: 'Freitag', meals: { breakfast: null, lunch: null, dinner: null } },
+  { day: 'Samstag', meals: { breakfast: null, lunch: null, dinner: null } },
+  { day: 'Sonntag', meals: { breakfast: null, lunch: null, dinner: null } },
+]);
 </script>
 
 <style scoped>

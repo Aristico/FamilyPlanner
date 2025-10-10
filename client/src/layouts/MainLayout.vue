@@ -29,22 +29,27 @@
     </transition>
 
     <!-- Floating Action Button -->
-    <button class="fixed z-30 bottom-6 right-6 w-14 h-14 bg-primary-600 text-white rounded-full flex items-center justify-center shadow-md hover:bg-primary-700 transition-transform hover:scale-110">
+    <button v-if="showFab" class="fixed z-30 bottom-6 right-6 w-14 h-14 bg-primary-600 text-white rounded-full flex items-center justify-center shadow-md hover:bg-primary-700 transition-transform hover:scale-110">
       <i class="ph ph-plus text-3xl"></i>
     </button>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useRoute } from 'vue-router';
 import Sidebar from '../components/Sidebar.vue';
 import Header from '../components/Header.vue';
 
 const isSidebarOpen = ref(false);
+const route = useRoute();
 
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value;
 };
+
+const showFab = computed(() => route.name === 'MealPlanner');
+
 </script>
 
 <style scoped>

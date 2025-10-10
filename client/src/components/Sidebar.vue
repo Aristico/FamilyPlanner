@@ -14,7 +14,7 @@
         </button>
       </div>
       <nav class="flex-1 px-4 py-4 space-y-2">
-        <router-link to="/app/meal-planner" v-slot="{ isActive }">
+        <router-link to="/app/meal-planner" v-slot="{ isActive }" @click="$emit('close')">
           <a href="#" class="flex items-center px-4 py-2 rounded-lg transition-colors"
             :class="isActive ? 'bg-primary-600 text-white shadow-sm' : 'text-slate-700 hover:bg-slate-100'">
             <i class="ph-fill ph-fork-knife text-lg"></i>
@@ -23,10 +23,13 @@
         </router-link>
       </nav>
       <div class="px-4 py-4 border-t border-slate-200">
-        <router-link to="/app/profile" v-slot="{ isActive }">
+        <router-link to="/app/profile" v-slot="{ isActive }" @click="$emit('close')">
           <a href="#" class="flex items-center px-4 py-2 rounded-lg transition-colors"
             :class="isActive ? 'bg-primary-600 text-white shadow-sm' : 'text-slate-700 hover:bg-slate-100'">
-            <img src="https://placehold.co/40x40/6366f1/FFFFFF?text=M" alt="Benutzerbild" class="w-8 h-8 rounded-full" />
+                        <img v-if="authStore.user && authStore.user.avatar_url" :src="authStore.user.avatar_url" alt="Benutzerbild" class="w-8 h-8 rounded-full object-cover" />
+            <div v-else-if="authStore.user" class="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white font-bold text-sm">
+              {{ authStore.user.name.charAt(0).toUpperCase() }}
+            </div>
             <span class="ml-3 font-medium">Profil</span>
           </a>
         </router-link>

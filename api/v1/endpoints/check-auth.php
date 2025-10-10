@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+$config = require_once __DIR__ . '/../core/config.php';
 require_once __DIR__ . '/../core/database.php';
 
 header("Content-Type: application/json");
@@ -10,8 +11,8 @@ header("Access-Control-Allow-Credentials: true");
 if (isset($_SESSION['user_id'])) {
     // User is authenticated
     try {
-        $db = Database::getInstance()->getConnection();
-        $stmt = $db->prepare("SELECT id, name, email, family_id FROM users WHERE id = :id");
+        $db = Database::getInstance($config)->getConnection();
+        $stmt = $db->prepare("SELECT id, name, email, family_id, avatar_url FROM users WHERE id = :id");
         $stmt->execute(['id' => $_SESSION['user_id']]);
         $user = $stmt->fetch();
 
